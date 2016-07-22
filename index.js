@@ -21,7 +21,13 @@ var dashboard = new ParseDashboard({
       "masterKey": "myMasterKey",
       "appName": "Amfinders"
     }
-  ]
+  ],
+  "users": [
+    {
+      "user":"admin",
+      "pass":"pass"
+    }
+    ]
 }, allowInsecureHTTP);
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
