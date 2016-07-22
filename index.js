@@ -10,7 +10,16 @@ var S3Adapter = require('parse-server').S3Adapter;
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
-
+var dashboard = new ParseDashboard({
+  "apps": [
+    {
+      "serverURL": "http://amfinders.herokuapp.com/parse",
+      "appId": "myAppId",
+      "masterKey": "myMasterKey",
+      "appName": "Amfinders"
+    }
+  ]
+});
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -37,6 +46,7 @@ var app = express();
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
+app.use('/dashboard', dashboard);
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
