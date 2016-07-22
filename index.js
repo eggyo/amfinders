@@ -14,13 +14,13 @@ if (!databaseUri) {
 var dashboard = new ParseDashboard({
   "apps": [
     {
-      "serverURL": "https://amfinders.herokuapp.com/parse",
+      "serverURL": "http://amfinders.herokuapp.com/parse",
       "appId": "myAppId",
       "masterKey": "myMasterKey",
       "appName": "Amfinders"
     }
   ]
-});
+}, allowInsecureHTTP);
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
