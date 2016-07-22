@@ -14,7 +14,7 @@ if (!databaseUri) {
 var dashboard = new ParseDashboard({
   "apps": [
     {
-      "serverURL": "http://amfinders.herokuapp.com/parse",
+      "serverURL": "https://amfinders.herokuapp.com/parse",
       "appId": "myAppId",
       "masterKey": "myMasterKey",
       "appName": "Amfinders"
