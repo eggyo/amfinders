@@ -11,7 +11,7 @@ var S3Adapter = require('parse-server').S3Adapter;
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
-var allowInsecureHTTP = false
+var allowInsecureHTTP = true;
 
 var dashboard = new ParseDashboard({
   "apps": [
