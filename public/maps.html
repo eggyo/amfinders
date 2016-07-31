@@ -24,30 +24,7 @@ var map = new mapboxgl.Map({
     zoom: 9 // starting zoom
 });
 map.addControl(new mapboxgl.Navigation());
-map.on('load', function () {
-    map.addSource('drone', {
-    data: {
-        "type": "FeatureCollection",
-        "features": [{
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -76.53063297271729,
-                    39.18174077994108
-                ]
-            }
-        }]
-    });
-    map.addLayer({
-        "id": "drone",
-        "type": "symbol",
-        "source": "drone",
-        "layout": {
-            "icon-image": "rocket-15"
-        }
-    });
-});
+
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
 
