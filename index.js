@@ -71,6 +71,9 @@ app.get('/', function(req, res) {
 app.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
+app.get('/maps', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/maps.html'));
+});
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
