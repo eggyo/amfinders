@@ -24,6 +24,28 @@ var map = new mapboxgl.Map({
     zoom: 9 // starting zoom
 });
 map.addControl(new mapboxgl.Navigation());
+// create a GeoJSON point to serve as a starting point
+var point = {
+    "type": "Point",
+    "coordinates": [104.8571572124, 15.229170778682]
+};
+
+// add the GeoJSON above to a new vector tile source
+var source = new mapboxgl.GeoJSONSource({
+    data: point
+});
+map.on('load', function () {
+    map.addSource('drone', source);
+    map.addLayer({
+        "id": "drone",
+        "type": "symbol",
+        "source": "drone",
+        "layout": {
+            "icon-image": "airport-15"
+        }
+    });
+  //  window.setInterval(setPosition, 10);
+});
 
 // Enable pusher logging - don't include this in production
 Pusher.logToConsole = true;
@@ -34,7 +56,10 @@ var pusher = new Pusher('08c79a9e1cd91edcd93e', {
 
 var channel = pusher.subscribe('test_channel');
 channel.bind('my_event', function(data) {
-  alert(data.message);
+  //alert(data.message);
+  point.coordinates[0] = data.LONG;
+  point.coordinates[1] = data.LAT;
+  source.setData(point);
 });
 
 </script>
