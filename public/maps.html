@@ -4,6 +4,7 @@
     <meta charset='utf-8' />
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.21.0/mapbox-gl.css' rel='stylesheet' />
     <style>
@@ -22,6 +23,43 @@ var map = new mapboxgl.Map({
     center: [104.8571572124, 15.229170778682], // starting position long,lat
     zoom: 9 // starting zoom
 });
+map.addControl(new mapboxgl.Navigation());
+map.on('load', function () {
+    map.addSource('drone', {
+    data: {
+        "type": "FeatureCollection",
+        "features": [{
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -76.53063297271729,
+                    39.18174077994108
+                ]
+            }
+        }]
+    });
+    map.addLayer({
+        "id": "drone",
+        "type": "symbol",
+        "source": "drone",
+        "layout": {
+            "icon-image": "rocket-15"
+        }
+    });
+});
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('08c79a9e1cd91edcd93e', {
+  encrypted: true
+});
+
+var channel = pusher.subscribe('test_channel');
+channel.bind('my_event', function(data) {
+  alert(data.message);
+});
+
 </script>
 
 </body>
