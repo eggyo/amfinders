@@ -11,8 +11,8 @@ var S3Adapter = require('parse-server').S3Adapter;
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
-var allowInsecureHTTP = true;
 
+var allowInsecureHTTP = true;
 var dashboard = new ParseDashboard({
   "apps": [
     {
@@ -29,6 +29,7 @@ var dashboard = new ParseDashboard({
     }
     ]
 }, allowInsecureHTTP);
+
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
@@ -39,13 +40,23 @@ var api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
-  },
-                          filesAdapter: new S3Adapter(
-                                                      "AKIAISRXYPJPFLZ34JVQ",
-                                                      "59HQfwc0K+c5gPu+KpxKUn30l+T+9XNv+ZdOYb+D",
-                                                      "amfinders-bucket-file",
-                                                      {directAccess: true}
-                                                      )
+  },filesAdapter: new S3Adapter(
+    "AKIAISRXYPJPFLZ34JVQ",
+    "59HQfwc0K+c5gPu+KpxKUn30l+T+9XNv+ZdOYb+D",
+    "amfinders-bucket-file",
+    {directAccess: true}),
+    push: {
+      ios: [
+        {
+          pfx: './pushCertificates.dev.p12', // Dev PFX or P12
+          bundleId: 'Eggyo.amfinders',
+          production: false // Dev
+        },{
+          pfx: './pushCertificates.dis.p12', // Prod PFX or P12
+          bundleId: 'Eggyo.amfinders',
+          production: true // Prod
+          }]
+        }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
