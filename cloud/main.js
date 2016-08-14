@@ -8,12 +8,12 @@ Parse.Cloud.define("sendPush", function(request, response) {
 
   // request has 2 parameters: params passed by the client and the authorized user
   var params = request.params;
-  var chanals = request.chanals;
+  var channals = request.channals;
   // Our "Message" class has a "text" key with the body of the message itself
   var message = params.message;
 
   var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.containedIn('chanals', [chanals]); // targeting iOS devices only
+  pushQuery.containedIn('channals', [channals]); // targeting iOS devices only
 
   Parse.Push.send({
     where: pushQuery, // Set our Installation query
