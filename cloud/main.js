@@ -4,14 +4,37 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 
 // iOS push testing
-Parse.Cloud.define("sendPush", function(request, response) {
+Parse.Cloud.define("sendMessage", function(request, response) {
 
-  // request has 2 parameters: params passed by the client and the authorized user
-  var params = request.params;
   var channals = request.channals;
-  // Our "Message" class has a "text" key with the body of the message itself
-  var message = params.message;
+  var message = request.message;
 
+  var MessageObj = Parse.Object.extend("Message");
+  var messageObj = new MessageObj();
+
+  var senderID = message.senderID;
+  var recipientID = message.recipientID;
+  var timestamp = message.timestamp;
+  var text = message.message.text;
+
+  console.log("data :"+senderID+" | "+recipientID+" | "+timestamp+" | "+text);
+/*
+  messageObj.set("score", 1337);
+  messageObj.set("playerName", "Sean Plott");
+  messageObj.set("cheatMode", false);
+
+  messageObj.save(null, {
+    success: function(messageObj) {
+      // Execute any logic that should take place after the object is saved.
+      alert('New object created with objectId: ' + messageObj.id);
+    },
+    error: function(messageObj, error) {
+      // Execute any logic that should take place if the save fails.
+      // error is a Parse.Error with an error code and message.
+      alert('Failed to create new object, with error code: ' + error.message);
+    }
+  });
+*/
   var pushQuery = new Parse.Query(Parse.Installation);
   pushQuery.containedIn('channals', [channals]); // targeting iOS devices only
 
