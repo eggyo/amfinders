@@ -8,7 +8,9 @@ Parse.Cloud.define("sendMessage", function(request, response) {
 
   var channals = request.channals;
   var message = request.message;
+  console.log("data :"+message);
 
+/*
   var MessageObj = Parse.Object.extend("Message");
   var messageObj = new MessageObj();
 
@@ -18,6 +20,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   var text = message.message.text;
 
   console.log("data :"+senderID+" | "+recipientID+" | "+timestamp+" | "+text);
+  */
 /*
   messageObj.set("score", 1337);
   messageObj.set("playerName", "Sean Plott");
