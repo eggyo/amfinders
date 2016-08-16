@@ -41,8 +41,8 @@ Parse.Cloud.define("sendMessage", function(request, response) {
           console.log("#### PUSH ERROR" + error.message);
       }, useMasterKey: true});
       // set last mid to recipient
-      var userQuery = new Parse.Query(Parse.User);
-      userQuery.equalTo("objectId", recipientID);  // find recipientID
+      var userQuery = new Parse.Query("UserStetus");
+      userQuery.equalTo("user", recipientID);  // find recipientID
       userQuery.find({
         success: function(user) {
           console.log("#### User find OK : "+user[0]);
