@@ -39,7 +39,7 @@ var api = new ParseServer({
   facebookAppIds: [process.env.FACEBOOK_APP_ID],
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
-    classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+    classNames: ["Message", "UserStetus"] // List of classes to support for query subscriptions
   },filesAdapter: new S3Adapter(
     "AKIAISRXYPJPFLZ34JVQ",
     "59HQfwc0K+c5gPu+KpxKUn30l+T+9XNv+ZdOYb+D",
