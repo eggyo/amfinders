@@ -6,7 +6,7 @@ Parse.Cloud.define('hello', function(req, res) {
 // iOS push testing
 Parse.Cloud.define("sendMessage", function(request, response) {
   var params = request.params;
-  var channals = params.channals;
+  var channels = params.channels;
   var message = params.message;
   console.log("channals: "+channals+" message :"+message);
 
@@ -20,7 +20,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   var text = message.message.text;
 
   console.log("data :"+senderID+" | "+recipientID+" | "+timestamp+" | "+text);
-  
+
 /*
   messageObj.set("score", 1337);
   messageObj.set("playerName", "Sean Plott");
@@ -39,7 +39,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   });
 */
   var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.containedIn('channals', [channals]); // targeting iOS devices only
+  pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
 
   Parse.Push.send({
     where: pushQuery, // Set our Installation query
