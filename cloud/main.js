@@ -40,8 +40,6 @@ Parse.Cloud.define("sendMessage", function(request, response) {
       }, error: function(error) {
           console.log("#### PUSH ERROR" + error.message);
       }, useMasterKey: true});
-      response.success('success');
-
       // set last mid to recipient
       var userQuery = new Parse.Query(Parse.User);
       userQuery.equalTo("objectId", recipientID);  // find recipientID
@@ -59,6 +57,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
         }
       });
 
+      response.success('success');
 
     },
     error: function(messageObj, error) {
