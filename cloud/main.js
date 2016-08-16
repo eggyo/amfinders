@@ -28,6 +28,8 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   messageObj.save(null, {
     success: function(messageObj) {
       message.push({mid:messageObj.objectId});
+      console.log(message);
+
       var pushQuery = new Parse.Query(Parse.Installation);
       pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
       Parse.Push.send({
