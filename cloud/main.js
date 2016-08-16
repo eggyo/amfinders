@@ -8,7 +8,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   var params = request.params;
   var channels = params.channels;
   var message = params.message;
-  console.log("channals: "+channals+" message :"+message);
+  console.log("channels: "+channels+" message :"+message);
 
 
   var MessageObj = Parse.Object.extend("Message");
