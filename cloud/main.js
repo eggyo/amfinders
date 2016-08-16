@@ -8,8 +8,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   var params = request.params;
   var channels = params.channels;
   var message = params.message;
-  console.log("channels: "+channels+" message :"+message);
-
+  console.log("#### call sendMessage push channels: "+channels+" message :"+message +" ####");
 
   var MessageObj = Parse.Object.extend("Message");
   var messageObj = new MessageObj();
@@ -18,37 +17,36 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   var recipientID = message.recipientID;
   var timestamp = message.timestamp;
   var text = message.message.text;
+  var attachments = message.message.attachments;
 
-  console.log("data :"+senderID+" | "+recipientID+" | "+timestamp+" | "+text);
-
-/*
-  messageObj.set("score", 1337);
-  messageObj.set("playerName", "Sean Plott");
-  messageObj.set("cheatMode", false);
-
+  //console.log("data :"+senderID+" | "+recipientID+" | "+timestamp+" | "+text);
+  messageObj.set("senderID", senderID);
+  messageObj.set("recipientID", recipientID);
+  messageObj.set("timestamp", timestamp);
+  messageObj.set("text", text);
+  messageObj.set("attachments", attachments);
   messageObj.save(null, {
     success: function(messageObj) {
-      // Execute any logic that should take place after the object is saved.
-      alert('New object created with objectId: ' + messageObj.id);
+      message.push({"mid":messageObj.id});
+      var pushQuery = new Parse.Query(Parse.Installation);
+      pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
+      Parse.Push.send({
+        where: pushQuery, // Set our Installation query
+        data: message
+      }, { success: function() {
+          console.log("#### PUSH OK");
+      }, error: function(error) {
+          console.log("#### PUSH ERROR" + error.message);
+      }, useMasterKey: true});
+
+      response.success('success');
     },
     error: function(messageObj, error) {
       // Execute any logic that should take place if the save fails.
       // error is a Parse.Error with an error code and message.
-      alert('Failed to create new object, with error code: ' + error.message);
+      response.error(error.message);
     }
   });
-*/
-  var pushQuery = new Parse.Query(Parse.Installation);
-  pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
 
-  Parse.Push.send({
-    where: pushQuery, // Set our Installation query
-    data: message
-  }, { success: function() {
-      console.log("#### PUSH OK");
-  }, error: function(error) {
-      console.log("#### PUSH ERROR" + error.message);
-  }, useMasterKey: true});
 
-  response.success('success');
 });
