@@ -5,12 +5,12 @@ Parse.Cloud.define('hello', function(req, res) {
 
 // iOS push testing
 Parse.Cloud.define("sendMessage", function(request, response) {
-
+  var params = request.params;
   var channals = request.channals;
-  var message = request.message;
-  console.log("data :"+message);
+  var message = params.message;
+  console.log("channals: "+channals+"message :"+message);
 
-/*
+/*\
   var MessageObj = Parse.Object.extend("Message");
   var messageObj = new MessageObj();
 
