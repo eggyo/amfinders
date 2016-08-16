@@ -45,10 +45,10 @@ Parse.Cloud.define("sendMessage", function(request, response) {
       userQuery.equalTo("objectId", recipientID);  // find recipientID
       userQuery.find({
         success: function(user) {
-          console.log("#### User find OK");
-          user.set("lastMID", messageObj.id);
-          user.increment("msgCount");
-          user.save(null, {
+          console.log("#### User find OK : "+user[0]);
+          user[0].set("lastMID", messageObj.id);
+          user[0].increment("msgCount");
+          user[0].save(null, {
             success: function(obj) {
               console.log("#### User save OK");
             },
