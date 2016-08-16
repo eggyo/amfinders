@@ -40,8 +40,26 @@ Parse.Cloud.define("sendMessage", function(request, response) {
       }, error: function(error) {
           console.log("#### PUSH ERROR" + error.message);
       }, useMasterKey: true});
-
       response.success('success');
+
+      // set last mid to recipient
+      var userQuery = new Parse.Query(Parse.User);
+      query.equalTo("objectId", recipientID);  // find recipientID
+      query.find({
+        success: function(user) {
+          user.save({lastMID: messageObj.id}, {
+            success: function(obj) {
+              console.log("#### PUSH OK");
+            },
+            error: function(obj, error) {
+              console.log("#### User save lastMID ERROR" + error.message);
+              // error is a Parse.Error with an error code and message.
+            }
+          });
+        }
+      });
+
+
     },
     error: function(messageObj, error) {
       // Execute any logic that should take place if the save fails.
