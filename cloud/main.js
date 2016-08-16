@@ -44,12 +44,12 @@ Parse.Cloud.define("sendMessage", function(request, response) {
 
       // set last mid to recipient
       var userQuery = new Parse.Query(Parse.User);
-      query.equalTo("objectId", recipientID);  // find recipientID
-      query.find({
+      userQuery.equalTo("objectId", recipientID);  // find recipientID
+      userQuery.find({
         success: function(user) {
           user.save({lastMID: messageObj.id}, {
             success: function(obj) {
-              console.log("#### PUSH OK");
+              console.log("#### User save OK");
             },
             error: function(obj, error) {
               console.log("#### User save lastMID ERROR" + error.message);
