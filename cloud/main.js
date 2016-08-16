@@ -27,7 +27,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
   messageObj.set("attachments", attachments);
   messageObj.save(null, {
     success: function(messageObj) {
-      //message.push({mid:messageObj.objectId});
+      message.mid = messageObj.objectId;
       console.log(message);
 
       var pushQuery = new Parse.Query(Parse.Installation);
