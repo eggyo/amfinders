@@ -44,11 +44,12 @@ Parse.Cloud.define("sendMessage", function(request, response) {
       var userQuery = new Parse.Query("UserStetus");
       userQuery.equalTo("user", recipientID);  // find recipientID
       userQuery.find({
-        success: function(user) {
+        success: function(users) {
           console.log("#### User find OK : "+user[0]);
-          user[0].set("lastMID", messageObj.id);
-          user[0].increment("msgCount");
-          user[0].save(null, {
+          users[0].set("lastMID", messageObj.id);
+          users[0].set("lastMessage", messageObj);
+          users[0].increment("msgCount");
+          users[0].save(null, {
             success: function(obj) {
               console.log("#### User save OK");
             },
