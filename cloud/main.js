@@ -61,7 +61,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
         }
       });
 
-      response.success('success');
+      response.success({result:{mid:messageObj.id}});
 
     },
     error: function(messageObj, error) {
