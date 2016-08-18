@@ -48,7 +48,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
           console.log("#### User find OK : "+users[0]);
           users[0].set("lastMID", messageObj.id);
           users[0].set("lastMessage", messageObj);
-          users[0].set("lastMessageTimestamp", messageObj["timestamp"]);
+          users[0].set("lastMessageTimestamp", timestamp);
           users[0].increment("msgCount");
           users[0].save(null, {
             success: function(obj) {
