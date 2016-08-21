@@ -34,8 +34,7 @@ Parse.Cloud.define("sendMessage", function(request, response) {
       pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
       Parse.Push.send({
         where: pushQuery, // Set our Installation query
-        data: message,
-        badge:"Increment"
+        data: message
       }, { success: function() {
           console.log("#### PUSH OK");
       }, error: function(error) {
