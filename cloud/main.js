@@ -32,14 +32,37 @@ Parse.Cloud.define("sendMessage", function(request, response) {
 
       var pushQuery = new Parse.Query(Parse.Installation);
       pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
-      Parse.Push.send({
-        where: pushQuery, // Set our Installation query
-        data: message
-      }, { success: function() {
-          console.log("#### PUSH OK");
-      }, error: function(error) {
-          console.log("#### PUSH ERROR" + error.message);
-      }, useMasterKey: true});
+      pushQuery.find({
+        success: function(results) {
+          console.log("Successfully retrieved Installation" + results.length + ".");
+          var device = results[0];
+          device.increment("badge");
+          device.save(null, {
+            success: function(obj) {
+              console.log("#### User Installation OK");
+              var badge = device["badge"];
+              var newAPS = message.aps;
+              newAPS.badge = badge;
+              message.aps = newAPS;
+              Parse.Push.send({
+                where: pushQuery, // Set our Installation query
+                data: message
+              }, { success: function() {
+                  console.log("#### PUSH OK");
+              }, error: function(error) {
+                  console.log("#### PUSH ERROR" + error.message);
+              }, useMasterKey: true});
+            },
+            error: function(obj, error) {
+              console.log("#### User save Installation ERROR" + error.message);
+              // error is a Parse.Error with an error code and message.
+            }
+          });
+        },
+        error: function(error) {
+          console.error("Error: " + error.code + " " + error.message);
+        }
+      });
       // set last mid to recipient
       var userQuery = new Parse.Query("UserStetus");
       userQuery.equalTo("user", recipientID);  // find recipientID
