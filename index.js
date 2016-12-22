@@ -37,6 +37,7 @@ var api = new ParseServer({
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
   restAPIKey: process.env.REST_KEY,
   facebookAppIds: [process.env.FACEBOOK_APP_ID],
+  javascriptKey: process.env.JAVASCRIPT_KEY || '',
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Message", "UserStetus"] // List of classes to support for query subscriptions
