@@ -111,15 +111,14 @@ Parse.Cloud.define("retrieveAllObjects", function(request, status) {
 
 Parse.Cloud.define("getChannelsFeed", function(request, response) {
   var query = new Parse.Query("Channels");
-  query.descending("updatedAt");
   query.descending("member");
   query.equalTo("type",0);
   query.find({
    success: function(results) {
      response.success(results);
    },
-   error: function() {
-     response.error("getChannelsFeed failed");
+   error: function(error) {
+     response.error("getChannelsFeed failed"+error);
    }
  });
 
