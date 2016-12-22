@@ -111,8 +111,9 @@ Parse.Cloud.define("retrieveAllObjects", function(request, status) {
 
 Parse.Cloud.define("getChannelsFeed", function(request, response) {
   var query = new Parse.Query("Channels");
-  query.ascending("updatedAt");
-  query.ascending("member");
+  query.descending("updatedAt");
+  query.descending("member");
+  query.equalTo("type",0);
   query.find().then(function (res) {
       response.success(res);
   }, function (error) {
