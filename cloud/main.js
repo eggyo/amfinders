@@ -114,10 +114,13 @@ Parse.Cloud.define("getChannelsFeed", function(request, response) {
   query.descending("updatedAt");
   query.descending("member");
   query.equalTo("type",0);
-  query.find().then(function (res) {
-      response.success(res);
-  }, function (error) {
-      response.error("getChannelsFeed unsuccessful, error:" + error.code + " " + error.message);
-  });
+  query.find({
+   success: function(results) {
+     response.success(results);
+   },
+   error: function() {
+     response.error("getChannelsFeed failed");
+   }
+ });
 
 });
