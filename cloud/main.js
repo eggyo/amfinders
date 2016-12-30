@@ -2,6 +2,25 @@
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
+// iOS push testing
+Parse.Cloud.define("sendNotification", function(request, response) {
+  var params = request.params;
+  var channels = params.channels;
+  var message = params.message;
+  console.log("#### call sendNotification push channels: "+channels+" message :"+message +" ####");
+  var pushQuery = new Parse.Query(Parse.Installation);
+  pushQuery.containedIn('channels', [channels]); // targeting iOS devices only
+  Parse.Push.send({
+    where: pushQuery, // Set our Installation query
+    data: message
+  }, { success: function() {
+      console.log("#### PUSH OK");
+      response.success({result:message});
+  }, error: function(error) {
+      console.log("#### PUSH ERROR" + error.message);
+      response.error(error.message);
+  }, useMasterKey: true});
+});
 
 // iOS push testing
 Parse.Cloud.define("sendMessage", function(request, response) {
