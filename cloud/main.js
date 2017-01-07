@@ -142,3 +142,31 @@ Parse.Cloud.define("getChannelsFeed", function(request, response) {
  });
 
 });
+
+Parse.Cloud.define("changeUserPassword", function(request, response) {
+  // Set up to modify user data
+  Parse.Cloud.useMasterKey();
+  var query = new Parse.Query(Parse.User);
+  query.equalTo("objectId", request.params.userId);  // find all the women
+  query.first({
+    success: function(myUser) {
+    // Successfully retrieved the object.
+    myUser.set("password", request.params.newPassword);
+    myUser.save(null, {
+        success: function(myUser) {
+          // The user was saved successfully.
+          response.success("Successfully updated user.");
+        },
+        error: function(myUser, error) {
+          // The save failed.
+          // error is a Parse.Error with an error code and description.
+          response.error("Could not save changes to user.");
+        }
+      });
+
+    },
+    error: function(error) {
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+});
