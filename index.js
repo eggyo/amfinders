@@ -57,7 +57,13 @@ var api = new ParseServer({
           pfx: './pushCertificates.dis.p12', // Prod PFX or P12
           bundleId: 'Eggyo.amfinders',
           production: true // Prod
-          }]
+        }],
+        android: {
+        senderId: '430014508368',
+        apiKey: process.env.ANDROID_SERVER_API_KEY
+      }
+
+
         }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
