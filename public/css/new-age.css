@@ -340,6 +340,7 @@ section.contact {
 section.contact h2 {
   margin-top: 0;
   margin-bottom: 25px;
+  
 }
 section.contact h2 i {
   color: #dd4b39;
@@ -350,6 +351,28 @@ section.contact ul.list-social {
 section.contact .team-cell img {
   height: 148px;
 }
+section.contact .team-cell li a {
+  display: block;
+  height: 80px;
+  width: 80px;
+  line-height: 80px;
+  font-size: 40px;
+  border-radius: 100%;
+  color: white;
+}
+section.contact .team-cell li.social-twitter a {
+  background-color: #1da1f2;
+}
+section.contact .team-cell li.social-twitter a:hover {
+  background-color: #0d95e8;
+}
+section.contact .team-cell li.social-facebook a {
+  background-color: #3b5998;
+}
+section.contact .team-cell li.social-facebook a:hover {
+  background-color: #344e86;
+}
+
 section.contact ul.list-social li a {
   display: block;
   height: 80px;
