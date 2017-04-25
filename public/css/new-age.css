@@ -347,6 +347,9 @@ section.contact h2 i {
 section.contact ul.list-social {
   margin-bottom: 0;
 }
+section.contact .team-cell img {
+  height: 60px;
+}
 section.contact ul.list-social li a {
   display: block;
   height: 80px;
