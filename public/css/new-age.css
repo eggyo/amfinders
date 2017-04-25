@@ -362,6 +362,8 @@ section.contact .team-cell ul.list-social li a {
   font-size: 20px;
   border-radius: 100%;
   color: white;
+  margin-bottom: 20px;
+
 }
 section.contact .team-cell li.social-twitter a {
   background-color: #1da1f2;
